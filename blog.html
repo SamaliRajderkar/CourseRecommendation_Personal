@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f5f5f5;
+            background-image: url('yCourseRecB.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .post {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .post-meta {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .post-content {
+            line-height: 1.6;
+        }
+
+        /* Form styles */
+        #blog-form {
+            margin-top: 40px;
+        }
+
+        #blog-form textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        #blog-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 style="text-align: center;">My Blog</h1>
+
+    <div id="blog-posts">
+        <!-- Existing blog posts will be dynamically added here -->
+    </div>
+
+    <form id="blog-form">
+        <h2>Add New Blog Post</h2>
+        <label for="post-title">Title:</label>
+        <input type="text" id="post-title" required><br>
+        <label for="post-author">Author:</label>
+        <input type="text" id="post-author" required><br>
+        <label for="post-content">Content:</label>
+        <textarea id="post-content" required></textarea><br>
+        <button type="button" onclick="addBlogPost()">Submit</button>
+    </form>
+</div>
+
+<script>
+    // Sample initial blog posts (can be retrieved from a database)
+    const initialBlogPosts = [
+        {
+            title: "First Blog Post",
+            author: "John Doe",
+            content: "This is the content of the first blog post."
+        },
+        {
+            title: "Another Blog Post",
+            author: "Jane Smith",
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+    ];
+
+    // Function to render existing blog posts
+    function renderBlogPosts() {
+        const blogPostsContainer = document.getElementById("blog-posts");
+        blogPostsContainer.innerHTML = ""; // Clear existing content
+
+        initialBlogPosts.forEach(post => {
+            const postElement = document.createElement("div");
+            postElement.classList.add("post");
+
+            postElement.innerHTML = `
+                <h2 class="post-title">${post.title}</h2>
+                <p class="post-meta">By ${post.author}</p>
+                <p class="post-content">${post.content}</p>
+            `;
+
+            blogPostsContainer.appendChild(postElement);
+        });
+    }
+
+    // Function to add a new blog post
+    function addBlogPost() {
+        const title = document.getElementById("post-title").value;
+        const author = document.getElementById("post-author").value;
+        const content = document.getElementById("post-content").value;
+
+        if (title && author && content) {
+            const newPost = { title, author, content };
+            initialBlogPosts.push(newPost);
+            renderBlogPosts(); // Re-render blog posts
+            clearFormFields();
+        } else {
+            alert("Please fill in all fields.");
+        }
+    }
+
+    // Function to clear form fields after submission
+    function clearFormFields() {
+        document.getElementById("post-title").value = "";
+        document.getElementById("post-author").value = "";
+        document.getElementById("post-content").value = "";
+    }
+
+    // Initial rendering of blog posts
+    renderBlogPosts();
+</script>
+
+</body>
+</html>
